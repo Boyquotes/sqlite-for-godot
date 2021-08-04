@@ -89,7 +89,7 @@ connect to an sqlite database
 ### SQLiteStatement SQLite.compile_sql(String sql)
 compile an SQL statement, returns null on failure
 
-###String SQLite.get_last_error()
+### String SQLite.get_last_error()
 get the last error message, useful for debugging when a function call failed
                                                  
 ### bool SQLStatment.execute(Array params)
