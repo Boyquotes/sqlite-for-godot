@@ -74,28 +74,29 @@ func test_sqlite():
 
 
 ## Class Reference
-SQLite          - sqlite driver class (manages exactly one database connection, can 
-                  have multiple instances)
-SQLiteStatement - sqlite compiled SQL statement class (do not create instances 
-                  directly)
+### SQLite
+sqlite driver class (manages exactly one database connection, can have multiple 
+instances)
+
+### SQLiteStatement
+sqlite compiled SQL statement class (do not create instances directly)
                   
                   
 ## Method Reference
-bool SQLite.connect(String filename)           - connect to an sqlite database
-SQLiteStatement SQLite.compile_sql(String sql) - compile an SQL statement, returns
-                                                 null on failure
-String SQLite.get_last_error()                 - get the last error message, useful
-                                                 for debugging when a function call
-                                                 failed
+### bool SQLite.connect(String filename)
+connect to an sqlite database
+
+### SQLiteStatement SQLite.compile_sql(String sql)
+compile an SQL statement, returns null on failure
+
+###String SQLite.get_last_error()
+get the last error message, useful for debugging when a function call failed
                                                  
-bool SQLStatment.execute(Array params)         - execute an SQL statement up until
-                                                 the first row of results, "params"
-                                                 should contain one value per "?"
-                                                 placeholder code in the SQL 
-                                                 statement, pass an empty array if 
-                                                 there are no placeholder codes
-Dictionary SQLStatement.next_row()             - returns a dictionary containing the
-                                                 contents of the current row in the
-                                                 result set and executes the 
-                                                 statement up until the next row of
-                                                 results
+### bool SQLStatment.execute(Array params)
+execute an SQL statement up until the first row of results, "params" should contain 
+one value per "?" placeholder code in the SQL statement, pass an empty array if 
+there are no placeholder codes
+
+### Dictionary SQLStatement.next_row()
+returns a dictionary containing the contents of the current row in the result set 
+and executes the statement up until the next row of results
