@@ -22,28 +22,26 @@ func test_sqlite():
 	
 	#Test sqlite database connection
 	print("Connecting to sqlite database...")
-	var db_path = "test.db"
+	var db_path = "C:/Users/Dylan/Documents/Code/Godot/src/godot-2.1/bin/test.db"
 	
 	if not sql.connect(db_path):
-		print("Failed to open database.")
+		print(sql.get_last_error())
 		
 	#Try to drop existing users table
 	print("Dropping users table...")
-	var stmt = sql.compile_sql("DROP TABLE IF EXISTS users;")
 	
-	if not stmt.execute([]):
-		print("Failed to drop table.")
+	if not sql.execute_sql("DROP TABLE IF EXISTS users;"):
+		print(sql.get_last_error())
 		
 	#Try to create new users table
 	print("Creating users table...")
-	stmt = sql.compile_sql("CREATE TABLE users(id INTEGER PRIMARY KEY, name VARCHAR(32), score INT, hp REAL);")
 	
-	if not stmt.execute([]):
-		print("Failed to create table.")
+	if not sql.execute_sql("CREATE TABLE users(id INTEGER PRIMARY KEY, name VARCHAR(32), score INT, hp REAL);"):
+		print(sql.get_last_error())
 	
 	#Try to insert into users table
 	print("Inserting records into users table...")
-	stmt = sql.compile_sql("INSERT INTO users(name, score, hp) VALUES (?, ?, ?);")
+	var stmt = sql.compile_sql("INSERT INTO users(name, score, hp) VALUES (?, ?, ?);")
 	var users = [["Dylan", 10000, 500.8], ["Emmi", 5000, 800.37], ["Fiona", 2500, 568.975]]
 	
 	for user in users:
@@ -54,7 +52,7 @@ func test_sqlite():
 	stmt = sql.compile_sql("SELECT * FROM users;")
 	
 	if not stmt.execute([]):
-		print("Failed to select data from users table.")
+		print(sql.get_last_error())
 		
 	var row = stmt.next_row()
 	
@@ -62,12 +60,12 @@ func test_sqlite():
 		print(row)
 		row = stmt.next_row()
 		
-	#Try an sql statement that should fail
+	#Try an SQL statement that should fail
 	print("Testing error handling...")
 	stmt = sql.compile_sql("SELECT * FROM log;")
 	
 	if stmt != null:
-		print("The following statement should have failed to compile!")
+		print("The preceding statement should have failed to compile!")
 		
 	print("Error message is '" + sql.get_last_error() + "'")
 ```
@@ -88,6 +86,9 @@ connect to an sqlite database
 
 ### SQLiteStatement SQLite.compile_sql(String sql)
 compile an SQL statement, returns null on failure
+
+### bool SQLite.execute_sql(String sql)
+execute an SQL statement that takes no parameters and returns no results
 
 ### String SQLite.get_last_error()
 get the last error message, useful for debugging when a function call failed
