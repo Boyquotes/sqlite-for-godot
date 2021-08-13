@@ -43,20 +43,20 @@ bool SQLiteStatement::bind_params(Array &params)
             break;
         }
         
+            //Null?
+        case Variant::NIL:
+        {
+            //Bind null param
+            sqlite3_bind_null(stmt, i + 1);
+            break;
+        }
+        
             //String?
         case Variant::STRING:
         {
             //Bind string param
             sqlite3_bind_text16(stmt, i + 1, ((String)param).c_str(), -1, 
                 nullptr);
-            break;
-        }
-        
-            //Null?
-        case Variant::NIL:
-        {
-            //Bind null param
-            sqlite3_bind_null(stmt, i + 1);
             break;
         }
         

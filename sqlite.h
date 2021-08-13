@@ -28,6 +28,7 @@ public:
     ~SQLite();
     bool connect(String filename);
     Variant compile_sql(String sql);
+    bool execute_sql(String sql);
     String get_last_error();
 };
 
